@@ -16,7 +16,6 @@ public class Main{
         4. Secondary lists can only have up to 9 tasks contained
         5. Primary lists (PLs) are lists that can contain lists and tasks
         6. Secondary lists (SLs) are lists that cannot contain other lists (may only contain tasks)
-
          */
 
         var task1 = new Task("Homework", 2.5);

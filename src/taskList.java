@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 public class taskList{
     private final LinkedHashMap<String, Task> taskList;
-    private File file;
+    private final File file;
 
     public taskList(String listName){
         taskList = new LinkedHashMap<>();
@@ -41,7 +41,7 @@ public class taskList{
         }
     }
 
-    //TODO: Make parameterized method that only loads one task from text file
+    //Load the entire list of tasks as is
     public void loadList(){
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line;
@@ -54,15 +54,43 @@ public class taskList{
         }
     }
 
-    //TODO: Make parameterized method that displays only one task
-    public String displayTasks(){
-        StringBuilder displayString = new StringBuilder();
-        int index = 1;
-        for (String key : taskList.keySet()){
-            displayString.append("Task ").append(index).append(": ").append(taskList.get(key).getTaskName()).append("\n");
-            index++;
+    //Load a single task based on a task name in tasklist
+    //First index is always at 8; second index depends on the length of the task name and isn't inclusive
+    public void loadTask(String taskName){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                if (line.isEmpty()){
+                    continue;
+                }
+                int secondIndex = line.indexOf("/") - 1;
+                if (line.substring(8, secondIndex).equals(taskName)){
+                    System.out.println(line);
+                }
+            }
         }
-        return displayString.toString();
+        catch (IOException error){
+            System.out.println("Catastrophic Error: Could not read from file '" + file + "'");
+        }
+    }
+
+    public void loadTask(int taskIndex){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                if (line.isEmpty()){
+                    continue;
+                }
+                String tempLine = line.substring(5, 6);    //Condenses the read line into the integer index only
+                int readIndex = Integer.parseInt(tempLine); //Parses the condensed line
+                if (taskIndex == readIndex){
+                    System.out.println(line);   //Reads from the original line
+                }
+            }
+        }
+        catch (IOException error){
+            System.out.println("Catastrophic Error: Could not read from file '" + file + "'");
+        }
     }
 
     public void addTask(Task task){

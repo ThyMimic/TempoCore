@@ -18,9 +18,9 @@ public class Main{
         6. Secondary lists (SLs) are lists that cannot contain other lists (may only contain tasks)
          */
 
-        var task1 = new Task("Homework", 2.5);
-        var task2 = new Task("Shopping", 2.5);
-        var task3 = new Task("Cleaning", 2.5);
+        var task1 = new Task("Homework", 2.5, 2);
+        var task2 = new Task("Shopping", 2.5, 2);
+        var task3 = new Task("Cleaning", 2.5, 2);
 
         taskList taskList = new taskList("Test List of Tasks");
 
